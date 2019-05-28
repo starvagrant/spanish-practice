@@ -10,7 +10,11 @@ class SpanishCmd(cmd.Cmd):
         for key in wordlist:
             inputword = key + "? "
             player_input = input(inputword)
-            print(player_input.lower() == wordlist[key])
+            if (player_input.lower() == wordlist[key]):
+                print('True')
+            else:
+                print('False')
+                print(wordlist[key])
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
