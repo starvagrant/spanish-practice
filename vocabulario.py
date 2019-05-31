@@ -5,7 +5,7 @@ import random
 class SpanishCmd(cmd.Cmd):
     prompt = '\n\033[0mEspañol> '
 
-    def __init__(self):
+    def __init__(self, completekey='tab', stdin=None, stdout=None):
         super().__init__()
         reading=True
         self.wordlist=[]
@@ -23,14 +23,16 @@ class SpanishCmd(cmd.Cmd):
                 i=i+1
 
     def do_palabras(self, args):
-        random.shuffle(self.wordlist)
-        for pair in self.wordlist:
-            player_input = input(pair[0] + '? ')
-            if (player_input.lower() == pair[1]):
+        quiz=random.sample(self.wordlist,20)
+        for pair in quiz:
+            r=[0,1]
+            random.shuffle(r)
+            player_input = input(pair[r[0]] + '? ')
+            if (player_input.lower() == pair[r[1]]):
                 print('True')
             else:
                 print('False')
-                print(pair[1])
+                print(pair[r[1]])
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
