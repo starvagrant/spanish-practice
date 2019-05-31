@@ -5,7 +5,7 @@ import random
 class SpanishCmd(cmd.Cmd):
     prompt = '\n\033[0mEspañol> '
 
-    def __init__(self):
+    def __init__(self, completekey='tab', stdin=None, stdout=None):
         super().__init__()
         reading=True
         self.wordlist=[]
