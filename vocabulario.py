@@ -23,8 +23,8 @@ class SpanishCmd(cmd.Cmd):
                 i=i+1
 
     def do_palabras(self, args):
-        random.shuffle(self.wordlist)
-        for pair in self.wordlist:
+        quiz=random.sample(self.wordlist,20)
+        for pair in quiz:
             r=[0,1]
             random.shuffle(r)
             player_input = input(pair[r[0]] + '? ')
