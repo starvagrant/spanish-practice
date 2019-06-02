@@ -34,8 +34,23 @@ class SpanishCmd(cmd.Cmd):
                 print('False')
                 print(pair[r[1]])
 
-    def keymap(self,user_input_string):
-        return "áéíóúüñ¡¿"
+    def keymap(self,user_input):
+        user_input = user_input.replace("'a", "á")
+        user_input = user_input.replace('"a', "á")
+        user_input = user_input.replace("'e", "é")
+        user_input = user_input.replace('"e', "é")
+        user_input = user_input.replace("'i", "í")
+        user_input = user_input.replace('"i', "í")
+        user_input = user_input.replace('~n', "ñ")
+        user_input = user_input.replace("'o", "ó")
+        user_input = user_input.replace('"o', "ó")
+        user_input = user_input.replace("'u", "ú")
+        user_input = user_input.replace('"u', "ú")
+        user_input = user_input.replace(":u", "ü")
+        user_input = user_input.replace(";u", "ü")
+        user_input = user_input.replace("!!", "¡")
+        user_input = user_input.replace("??", "¿")
+        return user_input
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
