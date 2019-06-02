@@ -22,6 +22,21 @@ class SpanishCmd(cmd.Cmd):
                     reading=False
                 i=i+1
 
+    def do_keymap(self, args):
+        keymap_message = """For inputting spanish accents on English keyboard
+                            Use the following keymappings:
+                           'a=á  'e=é  'i=í  'o=ó  'u=ú
+                           :u=ü  ~n=ñ  ??=¿  !!=¡
+                           Program also understands directly input áéíóúüñ¡¿
+                           Try typing accents 'a~n or accents <example-text>
+                           To see how the program handles keymapped text"""
+        keymap_lines = keymap_message.split('\n')
+        for line in keymap_lines:
+            print(line.lstrip())
+
+    def do_accents(self,args):
+        print(self.keymap(args.lower()))
+
     def do_palabras(self, args):
         quiz=random.sample(self.wordlist,20)
         for pair in quiz:
@@ -56,7 +71,6 @@ class SpanishCmd(cmd.Cmd):
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
 
-    
 if __name__ == '__main__':
     print('Bienvenido!')
     print('===========')
