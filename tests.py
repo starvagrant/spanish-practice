@@ -10,7 +10,7 @@ class Tests(unittest.TestCase):
         user_string2= """"a"e"i"o"u:u~n!!??"""
         target_string = "áéíóúüñ¡¿"
         loop = vocabulario.SpanishCmd()
-        self.assertEqual(loop.keymap(user_string1,target_string))
-        self.assertEqual(loop.keymap(user_string2,target_string))
+        self.assertEqual(loop.keymap(user_string1),target_string)
+        self.assertEqual(loop.keymap(user_string2),target_string)
 
 unittest.main()
