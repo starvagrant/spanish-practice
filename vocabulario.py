@@ -34,6 +34,9 @@ class SpanishCmd(cmd.Cmd):
                 print('False')
                 print(pair[r[1]])
 
+    def keymap(self,user_input_string):
+        return "áéíóúüñ¡¿"
+
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
 
