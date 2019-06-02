@@ -23,6 +23,9 @@ class SpanishCmd(cmd.Cmd):
                 i=i+1
 
     def do_keymap(self, args):
+        """ Prints a message explaining how to input troublesome spanish characters
+            Use the accents command to try it out"""
+
         keymap_message = """For inputting spanish accents on English keyboard
                             Use the following keymappings:
                            'a=á  'e=é  'i=í  'o=ó  'u=ú
@@ -35,6 +38,10 @@ class SpanishCmd(cmd.Cmd):
             print(line.lstrip())
 
     def do_accents(self,args):
+        """ This command lets you see how the program translates input internally
+        and is a spot to experiment with the mappings you can find by typing keymap.
+        Usage: accents !!I'm internal! or other forms of accents <words>"""
+
         print(self.keymap(args.lower()))
 
     def do_palabras(self, args):
