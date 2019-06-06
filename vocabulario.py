@@ -7,20 +7,8 @@ class SpanishCmd(cmd.Cmd):
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         super().__init__()
-        reading=True
         self.wordlist=[]
-        i=0
-        with open('words/words.txt', 'r') as f:
-            while(reading==True):
-                line = f.readline()
-                words = line.split('\t',2)
-                # list length will be 1 with empty string
-                if len(words) > 1:
-                    words[1] = words[1][:-1]
-                    self.wordlist.append(words)
-                else:
-                    reading=False
-                i=i+1
+        self.load_word_list()
 
     def do_keymap(self, args):
         """ Prints a message explaining how to input troublesome spanish characters
@@ -74,6 +62,22 @@ class SpanishCmd(cmd.Cmd):
         user_input = user_input.replace("!!", "¡")
         user_input = user_input.replace("??", "¿")
         return user_input
+
+    def load_word_list(self, file_name='words/words.txt'):
+        reading=True
+        i=0
+        self.wordlist = []
+        with open(file_name, 'r') as f:
+            while(reading==True):
+                line = f.readline()
+                words = line.split('\t',2)
+                # list length will be 1 with empty string
+                if len(words) > 1:
+                    words[1] = words[1][:-1]
+                    self.wordlist.append(words)
+                else:
+                    reading=False
+                i=i+1
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
