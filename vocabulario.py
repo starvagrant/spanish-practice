@@ -7,20 +7,8 @@ class SpanishCmd(cmd.Cmd):
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         super().__init__()
-        reading=True
         self.wordlist=[]
-        i=0
-        with open('words/words.txt', 'r') as f:
-            while(reading==True):
-                line = f.readline()
-                words = line.split('\t',2)
-                # list length will be 1 with empty string
-                if len(words) > 1:
-                    words[1] = words[1][:-1]
-                    self.wordlist.append(words)
-                else:
-                    reading=False
-                i=i+1
+        self.load_word_list()
 
     def do_keymap(self, args):
         """ Prints a message explaining how to input troublesome spanish characters
@@ -45,19 +33,23 @@ class SpanishCmd(cmd.Cmd):
         print(self.keymap(args.lower()))
 
     def do_palabras(self, args):
+        """ Test yourself with a 20 word vocabulary quiz """
         quiz=random.sample(self.wordlist,20)
         for pair in quiz:
             r=[0,1]
             random.shuffle(r)
             player_input = input(pair[r[0]] + '? ')
-            latin_input = self.keymap(player_input.lower())
-            if (latin_input == pair[r[1]]):
+            if self.compare(player_input, pair[r[1]]):
                 print('True')
             else:
                 print('False')
                 print(pair[r[1]])
 
     def keymap(self,user_input):
+        """ Allows for proper input of utf8 characters for Spanish:
+        'a=á,'e=e,'i=í,'o=ó,'u=ú,
+        :u=ü,~n=n,!!=¡, and ??=¿"""
+
         user_input = user_input.replace("'a", "á")
         user_input = user_input.replace('"a', "á")
         user_input = user_input.replace("'e", "é")
@@ -74,6 +66,29 @@ class SpanishCmd(cmd.Cmd):
         user_input = user_input.replace("!!", "¡")
         user_input = user_input.replace("??", "¿")
         return user_input
+
+    def load_word_list(self, file_name='words/words.txt'):
+        """ allow for loading an alternate word list """
+        reading=True
+        i=0
+        self.wordlist = []
+        with open(file_name, 'r') as f:
+            while(reading==True):
+                line = f.readline()
+                words = line.split('\t',2)
+                # list length will be 1 with empty string
+                if len(words) > 1:
+                    words[1] = words[1][:-1]
+                    self.wordlist.append(words)
+                else:
+                    reading=False
+                i=i+1
+
+    def compare(self, word1, word2):
+        """ Compare whether a string, post user input processing is
+        the same as the original string in the stored area"""
+        processed = self.keymap(word1.lower())
+        return processed==word2
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
