@@ -38,8 +38,7 @@ class SpanishCmd(cmd.Cmd):
             r=[0,1]
             random.shuffle(r)
             player_input = input(pair[r[0]] + '? ')
-            latin_input = self.keymap(player_input.lower())
-            if (latin_input == pair[r[1]]):
+            if self.compare(player_input, pair[r[1]]):
                 print('True')
             else:
                 print('False')
