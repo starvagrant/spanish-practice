@@ -79,6 +79,10 @@ class SpanishCmd(cmd.Cmd):
                     reading=False
                 i=i+1
 
+    def compare(self, word1, word2):
+        processed = self.keymap(word1.lower())
+        return processed==word2
+
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
 

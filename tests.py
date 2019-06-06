@@ -27,4 +27,9 @@ class Tests(unittest.TestCase):
         expected = [['answer','repuesta']]
         self.assertListEqual(loop.wordlist, expected)
 
+    def test_word_compare(self):
+        loop = vocabulario.SpanishCmd()
+        boolean = loop.compare("'ANIMO", "ánimo")
+        self.assertTrue(boolean)
+
 unittest.main()
