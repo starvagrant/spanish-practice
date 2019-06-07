@@ -67,7 +67,7 @@ class SpanishCmd(cmd.Cmd):
         user_input = user_input.replace("??", "¿")
         return user_input
 
-    def load_word_list(self, file_name='words/words.txt'):
+    def load_word_list(self, file_name='words/countedwords.txt'):
         """ allow for loading an alternate word list """
         reading=True
         i=0
@@ -78,6 +78,7 @@ class SpanishCmd(cmd.Cmd):
                 words = line.split('\t',2)
                 # list length will be 1 with empty string
                 if len(words) > 1:
+                    words[2] = int(words[2])
                     self.wordlist.append(words)
                 else:
                     reading=False
