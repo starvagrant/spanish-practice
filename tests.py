@@ -20,11 +20,11 @@ class Tests(unittest.TestCase):
             os.rmdir('test_dir/')
         os.mkdir('test_dir')
         with open('test_dir/test_list.csv', 'w') as f:
-            f.write('answer	repuesta\n')
+            f.write('answer	repuesta	0')
 
         loop = vocabulario.SpanishCmd()
         loop.load_word_list('test_dir/test_list.csv')
-        expected = [['answer','repuesta']]
+        expected = [['answer','repuesta',0]]
         self.assertListEqual(loop.wordlist, expected)
 
     def test_word_compare(self):
