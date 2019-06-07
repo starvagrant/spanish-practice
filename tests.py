@@ -43,6 +43,18 @@ class Tests(unittest.TestCase):
 
         self.assertEqual(expected, 'answer	repuesta	8')
 
+    def test_prepare_quiz(self):
+        clean_test_dir()
+        with open('test_dir/countedtest_list.csv', 'w') as f:
+            f.write('answer	repuesta	3\n')
+            f.write('buscar	to search	1\n')
+
+        loop = vocabulario.SpanishCmd()
+        loop.load_word_list('test_dir/countedtest_list.csv')
+        loop.prepare_quiz()
+        expected = [['answer','repuesta',3],['buscar','to search', 1]]
+        self.assertEqual(expected, loop.wordlist)
+
     def test_word_compare(self):
         loop = vocabulario.SpanishCmd()
         boolean = loop.compare("'ANIMO", "ánimo")
