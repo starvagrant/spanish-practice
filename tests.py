@@ -20,12 +20,30 @@ class Tests(unittest.TestCase):
             os.rmdir('test_dir/')
         os.mkdir('test_dir')
         with open('test_dir/test_list.csv', 'w') as f:
-            f.write('answer	repuesta\n')
+            f.write('answer	repuesta	0')
 
         loop = vocabulario.SpanishCmd()
         loop.load_word_list('test_dir/test_list.csv')
-        expected = [['answer','repuesta']]
+        expected = [['answer','repuesta',0]]
         self.assertListEqual(loop.wordlist, expected)
+
+    def test_write_word_list(self):
+        if os.path.exists('test_dir/test_list.csv'):
+            os.remove('test_dir/test_list.csv')
+            os.rmdir('test_dir/')
+        os.mkdir('test_dir')
+        with open('test_dir/test_list.csv', 'w') as f:
+            f.write('answer	repuesta	0')
+
+        loop = vocabulario.SpanishCmd()
+        loop.load_word_list('test_dir/test_list.csv')
+        loop.wordlist[0][2] = 8
+        loop.write_word_list('test_dir/test_list.csv')
+
+        with open('test_dir/test_list.csv', 'r') as f:
+            expected = f.readline().rstrip()
+
+        self.assertEqual(expected, 'answer	repuesta	8')
 
     def test_word_compare(self):
         loop = vocabulario.SpanishCmd()

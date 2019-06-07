@@ -35,15 +35,19 @@ class SpanishCmd(cmd.Cmd):
     def do_palabras(self, args):
         """ Test yourself with a 20 word vocabulary quiz """
         quiz=random.sample(self.wordlist,20)
-        for pair in quiz:
+        for quizline in quiz:
             r=[0,1]
             random.shuffle(r)
-            player_input = input(pair[r[0]] + '? ')
-            if self.compare(player_input, pair[r[1]]):
+            player_input = input(quizline[r[0]] + '? ')
+            if self.compare(player_input, quizline[r[1]]):
                 print('True')
+                print(quizline[2]+1)
+                quizline[2] = quizline[2] + 1
             else:
                 print('False')
-                print(pair[r[1]])
+                print(quizline[r[1]])
+
+        self.write_word_list()
 
     def keymap(self,user_input):
         """ Allows for proper input of utf8 characters for Spanish:
@@ -67,22 +71,29 @@ class SpanishCmd(cmd.Cmd):
         user_input = user_input.replace("??", "¿")
         return user_input
 
-    def load_word_list(self, file_name='words/words.txt'):
+    def load_word_list(self, file_name='words/countedwords.txt'):
         """ allow for loading an alternate word list """
         reading=True
         i=0
         self.wordlist = []
         with open(file_name, 'r') as f:
             while(reading==True):
-                line = f.readline()
+                line = f.readline().rstrip()
                 words = line.split('\t',2)
                 # list length will be 1 with empty string
                 if len(words) > 1:
-                    words[1] = words[1][:-1]
+                    words[2] = int(words[2])
                     self.wordlist.append(words)
                 else:
                     reading=False
                 i=i+1
+
+    def write_word_list(self, file_name='words/countedwords.txt'):
+        i=0
+        with open(file_name, 'w') as f:
+            for line in self.wordlist:
+                entry = line[0] + '\t' + line[1] + '\t' + str(line[2]) + '\n'
+                f.write(entry)
 
     def compare(self, word1, word2):
         """ Compare whether a string, post user input processing is
