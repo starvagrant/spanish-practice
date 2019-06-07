@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
         loop.write_word_list('test_dir/test_list.csv')
 
         with open('test_dir/test_list.csv', 'r') as f:
-            expected = f.readline()
+            expected = f.readline().rstrip()
 
         self.assertEqual(expected, 'answer	repuesta	8')
 

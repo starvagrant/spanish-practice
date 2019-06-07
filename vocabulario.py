@@ -78,7 +78,7 @@ class SpanishCmd(cmd.Cmd):
         self.wordlist = []
         with open(file_name, 'r') as f:
             while(reading==True):
-                line = f.readline()
+                line = f.readline().rstrip()
                 words = line.split('\t',2)
                 # list length will be 1 with empty string
                 if len(words) > 1:
