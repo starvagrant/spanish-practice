@@ -78,7 +78,6 @@ class SpanishCmd(cmd.Cmd):
                 words = line.split('\t',2)
                 # list length will be 1 with empty string
                 if len(words) > 1:
-                    words[1] = words[1][:-1]
                     self.wordlist.append(words)
                 else:
                     reading=False
