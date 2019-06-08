@@ -34,6 +34,7 @@ class SpanishCmd(cmd.Cmd):
 
     def do_palabras(self, args):
         """ Test yourself with a 20 word vocabulary quiz """
+        self.sort_wordlist()
         quiz=self.prepare_quiz()
         for quizline in quiz:
             r=[0,1]
@@ -105,7 +106,25 @@ class SpanishCmd(cmd.Cmd):
         if len(self.wordlist) < 20:
             return self.wordlist
         else:
-            return random.sample(self.wordlist, 20)
+            return self.wordlist[:20]
+
+    def sort_wordlist(self):
+        i=0
+        while (len(self.wordlist) > i):
+            try:
+                first_int = self.wordlist[i][2]
+                second_int = self.wordlist[i+1][2]
+
+                if first_int <= second_int:
+                    i=i+1
+                else:
+                    entry = self.wordlist.pop(i)
+                    self.wordlist.append(entry)
+                    i=0
+
+            except IndexError:
+                break
+
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
