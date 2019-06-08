@@ -34,7 +34,7 @@ class SpanishCmd(cmd.Cmd):
 
     def do_palabras(self, args):
         """ Test yourself with a 20 word vocabulary quiz """
-        quiz=random.sample(self.wordlist,20)
+        quiz=self.prepare_quiz()
         for quizline in quiz:
             r=[0,1]
             random.shuffle(r)
@@ -100,6 +100,12 @@ class SpanishCmd(cmd.Cmd):
         the same as the original string in the stored area"""
         processed = self.keymap(word1.lower())
         return processed==word2
+
+    def prepare_quiz(self):
+        if len(self.wordlist) < 20:
+            return self.wordlist
+        else:
+            return random.sample(self.wordlist, 20)
 
     def default(self, args):
         print("I do not understand that command. Type help for a list of commands.")
