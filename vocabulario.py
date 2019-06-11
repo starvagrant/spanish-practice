@@ -5,10 +5,11 @@ import random
 class SpanishCmd(cmd.Cmd):
     prompt = '\n\033[0mEspañol> '
 
-    def __init__(self, completekey='tab', stdin=None, stdout=None):
+    def __init__(self, file_name='words/countedwords.txt'):
         super().__init__()
+        self.file_name=file_name
         self.word_list=[]
-        self.load_word_list()
+        self.load_word_list(self.file_name)
 
     def do_keymap(self, args):
         """ Prints a message explaining how to input troublesome spanish characters
