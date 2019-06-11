@@ -1,0 +1,65 @@
+# Delete the following commented lines and place this
+# file in a words/ directory.
+cerradura	deadlock	0
+despejar	to clear	0
+pitar	to whistle	0
+pizca	pinch	0
+ánimo	cheer up	0
+estrecho	narrow	0
+entregar	to deliver	0
+cuadernos	notebooks	0
+recién	recent	0
+hacerse pasar	to pretend to be	0
+forastero	stranger	0
+pecado	sin	0
+bóveda	vault	0
+carcél	prison	0
+leyenda	legend	0
+engañar	to trick	0
+vestíbulo	lobby	0
+asistir	to assist	0
+prestar	to lend	0
+bancarrota	bankruptcy	0
+ingreso	deposit	0
+añadir	add	0
+peluda	hairy	0
+contabilidad	accounting	0
+merced	mercy	0
+anís	anise	0
+ollas	pots	0
+gruñidos	grunts	0
+que falta me haces	i miss you so much	0
+jubilado	retired	0
+ataúd	coffin	0
+cotidianidad	everydayness	0
+bodega	cellar	0
+quebrantar	to break	0
+presupuesto	budget	0
+solución	solution	0
+apartamento	apartment	0
+en lugar	instead	0
+barbero	barber	0
+tejer	to knit	0
+mortaja	shroud	0
+vergüenza	shame	0
+tatarabuela	great great grandmother	0
+helado	ice cream	0
+suspirar	to sigh	0
+miel	honey	0
+rodear	to surround	0
+objetivo	goal	0
+diluvio	flood	0
+pergamino	parchment	0
+pregonar	to preach	0
+parranda	spree	0
+pesarices	regrets	0
+anterior	previous	0
+respirar	breathe	0
+asunto	affair	0
+asustar	to frighten	0
+asombrarse	to wonder	0
+deprimido	depressed	0
+sudar	to sweat	0
+jubilado	retired	0
+deprimido	depressed	0
+torneo	tournament	0

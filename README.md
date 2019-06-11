@@ -7,5 +7,5 @@ The following repository contains a command program for improving my spanish.
 
 The program requires a working python 3 interpreter. My personal machine is running python 3.6
 and currently uses the cmd and unittest modules. Currently, the program requirss a word list that
-I'm not keeping in source control. The sample-words.txt file gives a few practice words. Delete
+I'm not keeping in source control. The countedwords.txt file gives a few practice words. Delete
 the commented lines and place it in a directory called **words/**
