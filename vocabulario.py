@@ -50,6 +50,12 @@ class SpanishCmd(cmd.Cmd):
 
         self.write_word_list()
 
+    def do_quit(self, args):
+        """ Exit the program """
+        print("Thanks for playing!")
+        # returning True ends cmd's looping structure
+        return True
+
     def keymap(self,user_input):
         """ Allows for proper input of utf8 characters for Spanish:
         'a=á,'e=e,'i=í,'o=ó,'u=ú,
