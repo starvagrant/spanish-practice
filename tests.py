@@ -23,19 +23,17 @@ class Tests(unittest.TestCase):
         with open('test_dir/test_list.csv', 'w') as f:
             f.write('answer	repuesta	0')
 
-        loop = vocabulario.SpanishCmd()
-        loop.load_word_list('test_dir/test_list.csv')
+        loop = vocabulario.SpanishCmd('test_dir/test_list.csv')
         expected = [['answer','repuesta',0]]
-        self.assertListEqual(loop.wordlist, expected)
+        self.assertListEqual(loop.word_list, expected)
 
     def test_write_word_list(self):
         clean_test_dir()
         with open('test_dir/test_list.csv', 'w') as f:
             f.write('answer	repuesta	0')
 
-        loop = vocabulario.SpanishCmd()
-        loop.load_word_list('test_dir/test_list.csv')
-        loop.wordlist[0][2] = 8
+        loop = vocabulario.SpanishCmd('test_dir/test_list.csv')
+        loop.word_list[0][2] = 8
         loop.write_word_list('test_dir/test_list.csv')
 
         with open('test_dir/test_list.csv', 'r') as f:
@@ -49,11 +47,10 @@ class Tests(unittest.TestCase):
             f.write('answer	repuesta	3\n')
             f.write('buscar	to search	1\n')
 
-        loop = vocabulario.SpanishCmd()
-        loop.load_word_list('test_dir/countedtest_list.csv')
+        loop = vocabulario.SpanishCmd('test_dir/countedtest_list.csv')
         loop.prepare_quiz()
         expected = [['answer','repuesta',3],['buscar','to search', 1]]
-        self.assertEqual(expected, loop.wordlist)
+        self.assertEqual(expected, loop.word_list)
 
     def test_word_compare(self):
         loop = vocabulario.SpanishCmd()
@@ -66,10 +63,9 @@ class Tests(unittest.TestCase):
             f.write('answer	repuesta	3\n')
             f.write('buscar	to search	1\n')
 
-        loop = vocabulario.SpanishCmd()
-        loop.load_word_list('test_dir/countedtest_list.csv')
-        loop.sort_wordlist()
+        loop = vocabulario.SpanishCmd('test_dir/countedtest_list.csv')
+        loop.sort_word_list()
         expected = [['buscar','to search',1],['answer','repuesta',3]]
-        self.assertListEqual(loop.wordlist, expected)
+        self.assertListEqual(loop.word_list, expected)
 
 unittest.main()
