@@ -90,6 +90,7 @@ class SpanishCmd(cmd.Cmd):
                 i=i+1
 
     def write_word_list(self, file_name='words/countedwords.txt'):
+        """ write self.word_list info to a file """
         i=0
         with open(file_name, 'w') as f:
             for line in self.wordlist:
@@ -103,12 +104,14 @@ class SpanishCmd(cmd.Cmd):
         return processed==word2
 
     def prepare_quiz(self):
+        """ return a list that is iterated over to provide quiz answers """
         if len(self.wordlist) < 20:
             return self.wordlist
         else:
             return self.wordlist[:20]
 
     def sort_wordlist(self):
+        """ Sort the program's internal word list """
         i=0
         while (len(self.wordlist) > i):
             try:
@@ -127,6 +130,7 @@ class SpanishCmd(cmd.Cmd):
 
 
     def default(self, args):
+        """ override cmd modules default response for one more helpful to the user """
         print("I do not understand that command. Type help for a list of commands.")
 
 if __name__ == '__main__':
