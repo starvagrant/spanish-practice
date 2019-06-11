@@ -7,7 +7,7 @@ class SpanishCmd(cmd.Cmd):
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         super().__init__()
-        self.wordlist=[]
+        self.word_list=[]
         self.load_word_list()
 
     def do_keymap(self, args):
@@ -34,7 +34,7 @@ class SpanishCmd(cmd.Cmd):
 
     def do_palabras(self, args):
         """ Test yourself with a 20 word vocabulary quiz """
-        self.sort_wordlist()
+        self.sort_word_list()
         quiz=self.prepare_quiz()
         for quizline in quiz:
             r=[0,1]
@@ -82,7 +82,7 @@ class SpanishCmd(cmd.Cmd):
         """ allow for loading an alternate word list """
         reading=True
         i=0
-        self.wordlist = []
+        self.word_list = []
         with open(file_name, 'r') as f:
             while(reading==True):
                 line = f.readline().rstrip()
@@ -90,7 +90,7 @@ class SpanishCmd(cmd.Cmd):
                 # list length will be 1 with empty string
                 if len(words) > 1:
                     words[2] = int(words[2])
-                    self.wordlist.append(words)
+                    self.word_list.append(words)
                 else:
                     reading=False
                 i=i+1
@@ -99,7 +99,7 @@ class SpanishCmd(cmd.Cmd):
         """ write self.word_list info to a file """
         i=0
         with open(file_name, 'w') as f:
-            for line in self.wordlist:
+            for line in self.word_list:
                 entry = line[0] + '\t' + line[1] + '\t' + str(line[2]) + '\n'
                 f.write(entry)
 
@@ -111,24 +111,24 @@ class SpanishCmd(cmd.Cmd):
 
     def prepare_quiz(self):
         """ return a list that is iterated over to provide quiz answers """
-        if len(self.wordlist) < 20:
-            return self.wordlist
+        if len(self.word_list) < 20:
+            return self.word_list
         else:
-            return self.wordlist[:20]
+            return self.word_list[:20]
 
-    def sort_wordlist(self):
+    def sort_word_list(self):
         """ Sort the program's internal word list """
         i=0
-        while (len(self.wordlist) > i):
+        while (len(self.word_list) > i):
             try:
-                first_int = self.wordlist[i][2]
-                second_int = self.wordlist[i+1][2]
+                first_int = self.word_list[i][2]
+                second_int = self.word_list[i+1][2]
 
                 if first_int <= second_int:
                     i=i+1
                 else:
-                    entry = self.wordlist.pop(i)
-                    self.wordlist.append(entry)
+                    entry = self.word_list.pop(i)
+                    self.word_list.append(entry)
                     i=0
 
             except IndexError:
