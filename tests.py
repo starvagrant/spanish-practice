@@ -60,4 +60,16 @@ class Tests(unittest.TestCase):
         boolean = loop.compare("'ANIMO", "ánimo")
         self.assertTrue(boolean)
 
+    def test_word_sort(self):
+        clean_test_dir()
+        with open('test_dir/countedtest_list.csv', 'w') as f:
+            f.write('answer	repuesta	3\n')
+            f.write('buscar	to search	1\n')
+
+        loop = vocabulario.SpanishCmd()
+        loop.load_word_list('test_dir/countedtest_list.csv')
+        loop.sort_wordlist()
+        expected = [['buscar','to search',1],['answer','repuesta',3]]
+        self.assertListEqual(loop.wordlist, expected)
+
 unittest.main()
