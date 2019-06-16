@@ -36,8 +36,8 @@ class Tests(unittest.TestCase):
         write_test_file()
 
         loop = vocabulario.SpanishCmd('test_dir/test.csv')
-        dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='0')
-        dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='0')
+        dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='3')
+        dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='1')
         expected = [dict1,dict2]
 
         self.assertListEqual(loop.word_list, expected)
@@ -67,6 +67,7 @@ class Tests(unittest.TestCase):
 
         dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='3')
         dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='1')
+        # after prepare_quiz sorting
         expected = [dict1,dict2]
 
         self.assertEqual(expected, loop.word_list)
@@ -84,7 +85,7 @@ class Tests(unittest.TestCase):
         loop.sort_word_list()
         dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='3')
         dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='1')
-        expected = [dict1,dict2]
+        expected = [dict2,dict1]
 
         self.assertListEqual(loop.word_list, expected)
 
