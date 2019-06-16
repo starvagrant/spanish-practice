@@ -39,13 +39,13 @@ class SpanishCmd(cmd.Cmd):
         self.sort_word_list()
         quiz=self.prepare_quiz()
         for quizline in quiz:
-            r=[0,1]
+            r=['spanish','english']
             random.shuffle(r)
             player_input = input(quizline[r[0]] + '? ')
             if self.compare(player_input, quizline[r[1]]):
                 print('True')
-                print(quizline[2]+1)
-                quizline[2] = quizline[2] + 1
+                print(int(quizline['correct_guesses'])+1)
+                quizline['correct_guesses'] = str(int(quizline['correct_guesses']) + 1)
             else:
                 print('False')
                 print(quizline[r[1]])
@@ -123,7 +123,6 @@ class SpanishCmd(cmd.Cmd):
             # Happens when i+1 is greater than list entries
             except IndexError:
                 break
-
 
     def default(self, args):
         """ override cmd modules default response for one more helpful to the user """
