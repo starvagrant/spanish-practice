@@ -34,7 +34,6 @@ class CsvFileHandle():
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writeheader()
             for entry in word_list:
-                print(entry)
                 writer.writerow(entry)
 
 if __name__ == '__main__':
