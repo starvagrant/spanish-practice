@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 import cmd
 import random
+from csvfilehandle import CsvFileHandle
 
 class SpanishCmd(cmd.Cmd):
     prompt = '\n\033[0mEspañol> '
 
-    def __init__(self, file_name='words/countedwords.txt'):
+    def __init__(self, file_name='words/countedwords.csv'):
         super().__init__()
         self.file_name=file_name
-        self.word_list=[]
-        self.load_word_list(self.file_name)
+        csv_file = CsvFileHandle(file_name=file_name)
+        self.word_list= csv_file.read()
 
     def do_keymap(self, args):
         """ Prints a message explaining how to input troublesome spanish characters
@@ -38,13 +39,13 @@ class SpanishCmd(cmd.Cmd):
         self.sort_word_list()
         quiz=self.prepare_quiz()
         for quizline in quiz:
-            r=[0,1]
+            r=['spanish','english']
             random.shuffle(r)
             player_input = input(quizline[r[0]] + '? ')
             if self.compare(player_input, quizline[r[1]]):
                 print('True')
-                print(quizline[2]+1)
-                quizline[2] = quizline[2] + 1
+                print(int(quizline['correct_guesses'])+1)
+                quizline['correct_guesses'] = str(int(quizline['correct_guesses']) + 1)
             else:
                 print('False')
                 print(quizline[r[1]])
@@ -79,30 +80,17 @@ class SpanishCmd(cmd.Cmd):
         user_input = user_input.replace("??", "¿")
         return user_input
 
-    def load_word_list(self, file_name='words/countedwords.txt'):
+    def load_word_list(self):
         """ allow for loading an alternate word list """
-        reading=True
-        i=0
-        self.word_list = []
-        with open(file_name, 'r') as f:
-            while(reading==True):
-                line = f.readline().rstrip()
-                words = line.split('\t',2)
-                # list length will be 1 with empty string
-                if len(words) > 1:
-                    words[2] = int(words[2])
-                    self.word_list.append(words)
-                else:
-                    reading=False
-                i=i+1
+        file_name = self.file_name
+        csv_file = CsvFileHandle(file_name)
+        self.word_list = csv_file.read()
 
-    def write_word_list(self, file_name='words/countedwords.txt'):
+    def write_word_list(self):
         """ write self.word_list info to a file """
-        i=0
-        with open(file_name, 'w') as f:
-            for line in self.word_list:
-                entry = line[0] + '\t' + line[1] + '\t' + str(line[2]) + '\n'
-                f.write(entry)
+        file_name = self.file_name
+        csv_file = CsvFileHandle(file_name)
+        csv_file.write(self.word_list)
 
     def compare(self, word1, word2):
         """ Compare whether a string, post user input processing is
@@ -122,8 +110,8 @@ class SpanishCmd(cmd.Cmd):
         i=0
         while (len(self.word_list) > i):
             try:
-                first_int = self.word_list[i][2]
-                second_int = self.word_list[i+1][2]
+                first_int = self.word_list[i]['correct_guesses']
+                second_int = self.word_list[i+1]['correct_guesses']
 
                 if first_int <= second_int:
                     i=i+1
@@ -132,9 +120,9 @@ class SpanishCmd(cmd.Cmd):
                     self.word_list.append(entry)
                     i=0
 
+            # Happens when i+1 is greater than list entries
             except IndexError:
                 break
-
 
     def default(self, args):
         """ override cmd modules default response for one more helpful to the user """
