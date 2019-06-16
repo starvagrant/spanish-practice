@@ -1,41 +1,34 @@
 #!/usr/bin/env python3
 
-def load_csv_file(file_name, columns, character_separator='\t'):
-    master_list = []
-    with open(file_name, 'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            line = line.rstrip('\n')
-            entries = line.split(character_separator, columns)
-            master_list.append(entries)
-    return master_list
+import csv
 
-def write_csv_file(file_name, master_list, character_separator='\t'):
-    with open(file_name, 'w') as f:
-        for entries in master_list:
-            line = ''
-            for entry in entries:
-                line = line + str(entry) + character_separator
-            line = line.rstrip()
-            line = line + '\n'
-            f.write(line)
+class CsvFileHandle():
 
-class CsvFileHandle(object):
+    def __init__(self,file_name='example.csv'):
+        self.file_name=file_name
 
-    def __init__(self, file_name, columns, character_separator='\t'):
-        """ self, <file> file_name, <int> columns <str> character_separtor='\t' """
-        self.file_name = file_name
-        self.columns = columns
-        self.character_separator = character_separator
-        self.master_list = self.load()
+    def read(self, file_name='example.csv'):
+        with open('example.csv', mode='r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            line_count = 0
+            for row in csv_reader:
+                if line_count == 0:
+                    print(f'Column names are {", ".join(row)}')
+                    line_count += 1
+                print(f'\t{row["spanish"]} means "{row["english"]}" in English. You\'ve guessed this {row["correct_guesses"]} times')
+                line_count += 1
+                print(f'Processed {line_count} lines.')
 
-    def load(self):
-        master_list = load_csv_file(self.file_name, self.columns, self.character_separator)
-        return master_list
+    def write(self, file_name='example.csv'):
+        with open(file_name, mode='w') as csv_file:
+            fieldnames = ['spanish', 'english', 'correct_guesses']
+            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
-    def write(self):
-        write_csv_file(self.file_name, self.master_list, self.character_separator)
+            writer.writeheader()
+            writer.writerow({'spanish': 'ayudar', 'english': 'to help', 'correct_guesses': '0'})
+            writer.writerow({'spanish': 'buscar', 'english': 'to search', 'correct_guesses': '0'})
 
 if __name__ == '__main__':
-    csv_file = CsvFileHandle('test_dir/test_list.csv', 3, '\t')
-    csv_file.write()
+    csvfile = CsvFileHandle()
+    csvfile.read()
+    csvfile.write()
