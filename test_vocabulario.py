@@ -5,7 +5,7 @@ import vocabulario
 import os
 
 def clean_test_dir(directory='test_dir'):
-        scan = os.scandir('test_dir')
+        scan = os.scandir(directory)
         for filename in scan:
             os.remove(filename)
 
