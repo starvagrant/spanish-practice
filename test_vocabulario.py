@@ -11,7 +11,7 @@ def clean_test_dir(directory='test_dir'):
         for filename in scan:
             os.remove(filename)
 
-def write_test_file(file_name='test_dir/test.csv'):
+def write_test_file(file_name='test_dir' + os.sep + 'test.csv'):
         csv_file = CsvFileHandle(file_name)
 
         # dict1['corrected_guess'] > dict2['corrected_guess']
@@ -35,7 +35,7 @@ class Tests(unittest.TestCase):
         clean_test_dir()
         write_test_file()
 
-        loop = vocabulario.SpanishCmd('test_dir/test.csv')
+        loop = vocabulario.SpanishCmd('test_dir' + os.sep + 'test.csv')
         dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='3')
         dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='1')
         expected = [dict1,dict2]
@@ -46,11 +46,11 @@ class Tests(unittest.TestCase):
         clean_test_dir()
         write_test_file()
 
-        loop = vocabulario.SpanishCmd('test_dir/test.csv')
+        loop = vocabulario.SpanishCmd('test_dir' + os.sep + 'test.csv')
         loop.word_list[0]['correct_guesses'] = 8
         loop.write_word_list()
 
-        csv_file = CsvFileHandle('test_dir/test.csv')
+        csv_file = CsvFileHandle('test_dir' + os.sep + 'test.csv')
 
         dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='8')
         dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='1')
@@ -62,7 +62,7 @@ class Tests(unittest.TestCase):
         clean_test_dir()
         write_test_file()
 
-        loop = vocabulario.SpanishCmd('test_dir/test.csv')
+        loop = vocabulario.SpanishCmd('test_dir' + os.sep + 'test.csv')
         loop.prepare_quiz()
 
         dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='3')
@@ -81,7 +81,7 @@ class Tests(unittest.TestCase):
         clean_test_dir()
         write_test_file()
 
-        loop = vocabulario.SpanishCmd('test_dir/test.csv')
+        loop = vocabulario.SpanishCmd('test_dir' + os.sep + 'test.csv')
         loop.sort_word_list()
         dict1 = OrderedDict(spanish='ayudar',english='to help',correct_guesses='3')
         dict2 = OrderedDict(spanish='buscar',english='to search',correct_guesses='1')

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import cmd
+import os
 import random
 from csvfilehandle import CsvFileHandle
 
 class SpanishCmd(cmd.Cmd):
     prompt = '\n\033[0mEspañol> '
 
-    def __init__(self, file_name='words/countedwords.csv'):
+    def __init__(self, file_name='words'+ os.sep+ 'countedwords.csv'):
         super().__init__()
         self.file_name=file_name
         csv_file = CsvFileHandle(file_name=file_name)
